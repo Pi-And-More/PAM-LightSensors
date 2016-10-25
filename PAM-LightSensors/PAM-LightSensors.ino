@@ -1,15 +1,28 @@
-// Repeat the header after STEPCOUNT steps
+//
+// The number of steps after which the header is repeated
+//
 #define STEPCOUNT 10
+//
+// The current step count
+//
 byte step = STEPCOUNT;
 
 void setup() {
-// Setup serial
+  //
+  // Setup serial
+  //
   Serial.begin(115200);
   Serial.println("Ready");
-// Set the reference 
+  //
+  // Set the reference for measuring the analog signals
+  // For some reason I got incorrect readings without connecting
+  // the 3.3v (on my Arduino Nano) to AREF and setting this
+  // reference
   analogReference(EXTERNAL);
-// Setup all analog inputs. We are using 5 which is the maximum
-// for the Nano on which I tested.
+  //
+  // Setup all analog inputs. We are using 5 which is the maximum
+  // for the Nano on which I tested.
+  //
   pinMode(A0,INPUT);
   pinMode(A1,INPUT);
   pinMode(A2,INPUT);
@@ -18,14 +31,24 @@ void setup() {
 }
 
 void loop() {
-// Increase our counter
+  //
+  // Increase our counter
+  //
   step++;
-// If we are over our STEPCOUNT then we repeat the header
+  //
+  // If we are over our STEPCOUNT then we repeat the header
+  //
   if (step>STEPCOUNT) {
+    //
+    // The reference to the different photo resistors
+    // GL5506, GL5516, GL5528, GL5537 and GL 5539
+    //
     Serial.println("* 5506  5516  5528  5537  5539");
     step = 0;
   }
-// Print all analog values to serial
+  //
+  // Print all analog values to serial
+  //
   Serial.print("  ");
   Serial.print(analogRead(A0));
   Serial.print("   ");
